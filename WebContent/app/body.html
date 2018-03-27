@@ -1,0 +1,194 @@
+      <div class="generic-container" >
+          <div class="panel panel-default">
+            <div class="panel-heading" style="padding: 8px 15px;" align="center"><span style="font-size:20px"><p>Ingreso de Producto Almacen</p></span></div>
+            <div class="formcontainer">
+				  <div class="panel panel-default">
+					<div class="formcontainer">
+						<form id="formdata"  #ingProductoForm="ngForm"   (ngSubmit)="submit()">
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<div class="col-xs-12 col-sm-2 col-md-2">
+										<input type="text" id="idalmacenorg" class="form-control input-sm" name="idalmacenorg" [(ngModel)]="producto.idalmacenorg" minlength="3" maxlength="10" placeholder="Cod ALmacen" required readonly />
+										<div *ngIf="formErrors.idalmacenorg" class="alert alert-danger"> {{ formErrors.idalmacenorg }}</div>
+									</div>
+									<div class="col-xs-12 col-sm-10 col-md-10">
+										<input type="text" id="nomalmacenorg" class="form-control input-sm" name="nomalmacenorg" [(ngModel)]="producto.nomalmacenorg" minlength="4" maxlength="200" placeholder="Des ALmacen" required readonly />
+										<div *ngIf="formErrors.nomalmacenorg" class="alert alert-danger"> {{ formErrors.nomalmacenorg }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="vendedor">Empresa</label>
+									<div class="col-xs-12 col-sm-10 col-md-10">
+										<input type="text" id="vendedor" class="form-control input-sm" required minlength="6" maxlength="200" name="vendedor" [(ngModel)]="producto.vendedor" placeholder="Empresa que vendio producto" required >
+										<div *ngIf="formErrors.vendedor" class="alert alert-danger"> {{ formErrors.vendedor }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="serie">Serie</label>
+									<div class="col-xs-12 col-sm-4 col-md-4">
+										<input type="text" id="serie" name="serie" class="form-control input-sm" [readonly]="ocultarSerie"  minlength="3" maxlength="11"  [(ngModel)]="producto.serie" placeholder="Ingrese Serie" required >
+										<div *ngIf="formErrors.serie" class="alert alert-danger"> {{ formErrors.serie }}</div>
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" style="text-align:right" for="modelo">Modelo</label>
+									<div class="col-xs-12 col-sm-4 col-md-4">
+										<select id="modelo" class="form-control" name="modelo" [(ngModel)]="producto.modelo" required   #modelo="ngModel" >
+											<option *ngFor="let obj of modelos" [value]="obj.id">{{obj.valor}}</option>
+										</select>
+										<div *ngIf="formErrors.modelo" class="alert alert-danger"> {{ formErrors.modelo }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="nombre">Nombre</label>
+									<div class="col-xs-12 col-sm-10 col-md-10">
+										<input type="text" id="nombre" class="form-control input-sm" required minlength="3" maxlength="200" name="nombre" [(ngModel)]="producto.nombre" placeholder="Nombre del producto" required >
+										<div *ngIf="formErrors.nombre" class="alert alert-danger"> {{ formErrors.nombre }}</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="peso">Peso</label>
+									<div class="col-xs-12 col-sm-2 col-md-3">
+										<input type="text" id="peso" name="peso" class="form-control input-sm" required minlength="1" maxlength="8"  [(ngModel)]="producto.peso" placeholder="Ingrese peso" required >
+										<div *ngIf="formErrors.peso" class="alert alert-danger"> {{ formErrors.peso }}</div>
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-1 control-lable" style="text-align:right" for="lote">Lote</label>
+									<div class="col-xs-12 col-sm-2 col-md-2">
+										<input type="text" id="lote" name="lote" class="form-control input-sm" required minlength="1" maxlength="8"  [(ngModel)]="producto.lote" placeholder="Ingrese lote" required >
+										<div *ngIf="formErrors.lote" class="alert alert-danger"> {{ formErrors.lote }}</div>
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-1 control-lable" style="text-align:right"  for="precio">Precio</label>
+									<div class="col-xs-12 col-sm-2 col-md-3">
+										<input type="text" id="precio" name="precio" class="form-control input-sm" required minlength="1" maxlength="10"  [(ngModel)]="producto.precio" placeholder="Ingrese precio" required >
+										<div *ngIf="formErrors.precio" class="alert alert-danger"> {{ formErrors.precio }}</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="nombreresponsabledeja">Resp. Descarga</label>
+									<div class="col-xs-12 col-sm-9 col-md-9">
+									    <input type="hidden" id="codigoresponsabledeja" name="codigoresponsabledeja" value="{{producto.codigoresponsabledeja}}"/>
+										<input type="text"  id="nombreresponsabledeja" class="form-control input-sm" required minlength="3" name="nombreresponsabledeja" [(ngModel)]="producto.nombreresponsabledeja" placeholder="Ingrese responsable deja producto" />
+										<div *ngIf="formErrors.nombreresponsabledeja" class="alert alert-danger"> {{ formErrors.nombreresponsabledeja }}</div>
+									</div>
+									<div class="col-xs-2 col-sm-1 col-md-1">
+									    <a routerLink="/modulo/almregistro/responsable/bpersonas" routerLinkActive="active"><button type="button" class="btn btn-default" aria-label="Right Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+									</div>
+									<div style="clear:both"></div>
+										<!-- En este bloque va pemitir agregar los popups de busqueda general-->  
+										<div class="view-side-form" >
+											<!--  <router-outlet></router-outlet>  -->
+										</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="nombreresponsablerecibe">Resp. Recibe</label>
+									<div class="col-xs-12 col-sm-9 col-md-9">
+									    <input type="hidden" id="codigoresponsablerecibe" name="codigoresponsablerecibe" value="{{producto.codigoresponsablerecibe}}"/>
+										<input type="text"  id="nombreresponsablerecibe" class="form-control input-sm" required minlength="3" name="nombreresponsablerecibe" [(ngModel)]="producto.nombreresponsablerecibe" placeholder="Ingrese responsable recibe producto" />
+										<div *ngIf="formErrors.nombreresponsablerecibe" class="alert alert-danger"> {{ formErrors.nombreresponsablerecibe }}</div>
+									</div>
+									<div class="col-xs-2 col-sm-1 col-md-1">
+									    <a href="/modulo/almregistro/responsable/limpiar" routerLinkActive="active"><button type="button" class="btn btn-default" aria-label="Right Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></a>
+									</div>
+									<div style="clear:both"></div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group ">
+									<div style="clear:both;margin-bottom:2px"></div>
+									<label class="col-xs-12 col-sm-2 col-md-2 control-lable" for="descripcion">Glosa</label>
+									<div class="col-xs-10 col-sm-10 " >
+										<textarea rows="5" cols="50" class="form-control" id="descripcion"  name="descripcion" [(ngModel)]="producto.descripcion"></textarea> 
+									</div>
+									<div style="clear:both"></div>
+								</div>
+							</div>
+							<div class="row" >
+								<div class="col-xs-12 col-sm-12 col-md-12" style="">
+									<div class="form-actions floatRight">
+										<button type="submit" class="btn btn-primary btn-sm" [disabled]="!ingProductoForm.form.valid" >{{texto1}}</button>
+										<button type="button" class="btn btn-warning btn-sm" (click)="resetear()">Resetear</button>
+										<button type="button" class="btn btn-warning btn-sm" (click)="validaForm()">Validar</button>										
+									</div>
+									
+								</div>
+							</div>
+							
+     						<div style="clear:both"></div>
+						</form>
+					  </div>
+				  </div>
+              </div>
+          </div>
+
+          <div class="panel panel-default">
+              <div class="panel-heading"><span style="font-size:14px">Lista de Giros</span></div>
+              <div class="tablecontainer">
+                  <table class="table table-hover">
+                      <thead>
+                          <tr>
+                              <th>Serie</th>
+                              <th>Modelo</th>
+                              <th>Nombre</th>
+                              <th>Almacen</th>
+							  <th>Fecha Recepción</th>
+							  <th>Descripción</th>
+							  <th>Vendedor</th>
+							  <th width="20%"></th>
+							  <th width="10px">
+							  		<div align="center" class="checkbox">
+									  <label><input type="checkbox" name="elegirAll" style="text-align:left;" [(ngModel)]='elegirAll' (change)="checkeartodos()">{{elegirAll}}</label>
+									</div>
+							  </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+					        <tr *ngFor="let p of productos" >
+
+								<td>{{p.serie}}</td>
+								<td>{{p.modelo=='02' ? 'Modelo 2' : p.modelo=='01' ? 'Modelo 1' : p.modelo=='03' ? 'Modelo 3' : 'Otro'}}</td>
+								<td>{{p.nombre}}</td>
+								<td>{{p.nomalmacenorg}}</td>
+								<td>{{p.fechaRecepcion}}</td>
+								<td>{{p.descripcion}}</td>
+								<td>{{p.vendedor}}</td>
+								
+								<td>
+									<button type="button" (click)="edit(p.serie,p.modelo,p.nombre,p.nomalmacenorg,p.fechaRecepcion,p.descripcion,p.vendedor,p.idalmacenorg,p.peso,p.lote,p.precio,p.nombreresponsabledeja,p.nombreresponsablerecibe); topFunction();" class="btn btn-success custom-width">Editar</button>
+									<button type="button" (click)="eliminarProducto(p.serie,p.idalmacenorg)"  class="btn btn-danger custom-width">Eliminar</button>
+								</td>
+								
+								<td>
+									<div align="center" class="checkbox">
+									  <label><input type="checkbox" name="elegido"  style="text-align:left;" [(ngModel)]='p.elegido'>{{p.elegido}}</label>
+									</div>
+								</td>
+						    </tr>
+
+                      </tbody>
+                  </table>
+				  <div></div>
+				  
+              </div>
+          </div>
+
+      </div>
+
+
